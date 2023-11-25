@@ -5,6 +5,7 @@ import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import { gql } from '@apollo/client';
 import client from '../client';
+import { useQuery } from '@apollo/client';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -41,6 +42,32 @@ export default function Home() {
     fetchGql();
   }, [])
 
+  const GET_TOKEN = gql`
+    query GetToken {
+      contracts(chainId: 1) {
+        ERC20(
+          addresses: [
+            "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+            "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+          ]
+        ) {
+          name
+          totalSupply
+        }
+      }
+    }
+  `;
+  const { loading, error, data } = useQuery(
+    GET_TOKEN
+  );
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (error) {
+    return `Error! ${error.message}`;
+  }
+
   return (
     <>
       <Head>
@@ -50,6 +77,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+        <div className={styles.code}>
+          {data.contracts.ERC20.map((token: any)=> (
+            <div key={`token-${token.name}`}>
+              <p>
+                {token.name}: {token.totalSupply}
+              </p>
+            </div>
+          ))}
+        </div>
         <div className={styles.description}>
           <p>
             Get started by editing&nbsp;
