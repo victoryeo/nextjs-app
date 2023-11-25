@@ -20,6 +20,10 @@ const config: Config = {
       },
       abi: erc20Abi,
     },
+    {
+      name: 'ERC20',
+      abi: erc20Abi,
+    },
   ],
 };
 
