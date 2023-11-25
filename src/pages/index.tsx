@@ -17,6 +17,9 @@ export default function Home() {
               contracts(chainId: 1) {
                 SHIB {
                   decimals
+                  name
+                  totalSupply
+                  balanceOf(_owner: "0x5a52e96bacdabb82fd05763e25335261b270efcb")
                 }
               }
             }
