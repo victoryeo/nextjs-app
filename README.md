@@ -5,6 +5,7 @@ Use node verison 18
 
 ## highlight
 experimental code with eth graphQL library  
+(use graphQL to query evm blockchain)
 ### note
 need to edit node_modules/eth-graphql/dist/index.mjs  
 edit line 6 to become:  
