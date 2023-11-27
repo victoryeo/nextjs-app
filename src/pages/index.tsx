@@ -10,6 +10,8 @@ import { useQuery } from '@apollo/client';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const [name, setName] = useState('');
+
   useEffect(() => {
     //usdc 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
     //tusd 0xdAC17F958D2ee523a2206206994597C13D831ec7
@@ -66,6 +68,14 @@ export default function Home() {
   }
   if (error) {
     return `Error! ${error.message}`;
+  }
+
+  const handleSubmit = (e: any) => {
+
+    e.preventDefault();
+
+    console.log(`Form submitted, ${name}`);
+
   }
 
   return (
@@ -173,20 +183,10 @@ export default function Home() {
             </p>
           </a>
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
+          <form onSubmit={handleSubmit}>
+            <input onChange={(e) => setName(e.target.value)} value={name}></input>
+            <button type='submit'>Click to submit</button>
+          </form>
         </div>
       </main>
     </>
